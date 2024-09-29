@@ -153,6 +153,18 @@ main{
     border-radius: 8px;
     background-color: #FFF6FE;
 }
+.task-checked{
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    text-decoration:line-through;
+    display: flex;
+    margin-top: 10px;
+    word-wrap: break-word;
+    padding: 15px 5px;
+    width: 97%;
+    border-radius: 8px;
+    background-color: #07bb5273;
+}
 #options{
     
     display: flex;

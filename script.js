@@ -29,7 +29,7 @@ function desenharTasks(id){
     let tasks = ''
     var selected = allAnotations[id].task
     var container = document.getElementById('content-task')
-    selected.forEach(tk=>{
+    selected.forEach((tk,index)=>{
         if (tk.complete == false){
             tasks = tasks +`
             <div class="task">
@@ -37,8 +37,19 @@ function desenharTasks(id){
                 <p style=" font-weight: 400;">${tk.t_name}</p>
             </div>
             <div id="options">
-                <button class="complete-task"></button>
-                <button class="remove-task"></button>
+                <button onclick = "CompleteTask(${index})" class="complete-task"></button>
+                <button onclick = "deletetask(${index})"  class="remove-task"></button>
+            </div>
+            </div>`
+        }
+        else{
+            tasks = tasks +`
+            <div class="task-checked">
+            <div style="flex: 1; ">
+                <p style=" font-weight: 400;">${tk.t_name}</p>
+            </div>
+            <div id="options">
+                <button onclick = "deletetask(${index})"  class="remove-task"></button>
             </div>
             </div>`
         }
@@ -75,6 +86,7 @@ function addTask(){
     if (campo.value || anotacaoSelecionada){
         anota.task.push({t_name:campo.value, complete: false})
         console.log(anota)
+        campo.value = ''
     }
     desenharTasks(anotacaoSelecionada)
 }
@@ -84,4 +96,16 @@ function Enterkey(event,func){
         func()
     }
 
+}
+
+//funcão que faz a task ser completada
+function CompleteTask(name_t){
+    allAnotations[anotacaoSelecionada].task[name_t].complete = true
+    console.log( allAnotations[anotacaoSelecionada].task[name_t])
+    desenharTasks(anotacaoSelecionada)
+}
+function deletetask(name_t){
+    console.log( allAnotations[anotacaoSelecionada].task[name_t])
+    allAnotations[anotacaoSelecionada].task.splice(name_t,1)
+    desenharTasks(anotacaoSelecionada)
 }
