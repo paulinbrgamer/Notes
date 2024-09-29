@@ -5,3 +5,14 @@
     font-weight: 400;
     font-style: normal;
 }
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFF6FE;
+    padding: 10px;
+}
+header > button{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
