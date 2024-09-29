@@ -7,6 +7,11 @@
     background-color: transparent;
     border: none;
 }
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 ::-webkit-scrollbar{
     width: 0;
 }
@@ -66,16 +71,13 @@ header{
 }
 /*anotações */
 #container-anotacoes > button{
-    display: flex;
-    justify-content: space-between;
-    word-wrap: break-word; 
-    white-space: normal;
+    word-wrap: break-word;
     font-size: 16px;
     font-weight: 600;
     color: #320c4bc0;
     background-color: #FFF6FE;
     margin-top: 6px;
-    padding: 15px;
+    padding: 10px;
     border-radius: 2px;
 }
 
@@ -87,4 +89,11 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Conteudo de tarefas */
+main{
+    background-color: gray;
+    flex: 1;
+    padding: 05px;
 }
