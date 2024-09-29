@@ -15,6 +15,7 @@
     display: none
 }
 .border{
+    height: 60px;
     border-bottom: 1px solid;
 }
 /*cabeçalho*/
@@ -23,7 +24,7 @@ header{
     display: flex;
     justify-content: space-between;
     background-color: #FFF6FE;
-    padding: 10px 10px 10px 20px;
+    padding: 20px 10px 10px 20px;
     box-sizing: border-box;
 }
 /*Menu hamburguer */
@@ -34,7 +35,7 @@ header{
     height:60px;
     width: 50px;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 .menuextendido{
     border-right: 1px solid #CAC4D0;
@@ -45,7 +46,8 @@ header{
 /*botao hamburguer */
 #hb-button{
     margin: auto;
-    width: 90%; height: 60px;
+    width: 90%; 
+    height: 60px;
     display: flex;
     align-items:self-end;
     justify-content: center;
@@ -64,6 +66,8 @@ header{
 }
 /*anotações */
 #container-anotacoes > button{
+    display: flex;
+    justify-content: space-between;
     word-wrap: break-word; 
     white-space: normal;
     font-size: 16px;
@@ -74,9 +78,11 @@ header{
     padding: 15px;
     border-radius: 2px;
 }
+
 /* add anotações */
 #add-container{
     height: 30px;
+    margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
