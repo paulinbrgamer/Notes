@@ -13,16 +13,14 @@
     <div id="menu" class="menu">
         <div onclick="toggleMenu()" id="hb-button" >
             <button ><img src="img/icons/prancheta.png" alt="prancheta"></button>
-            <h5 id="ant" class="delete" style="margin-bottom: 7px;">Anotações</h5>
+            <h5 id="ant" class="delete">Anotações</h5>
         </div>
-
+        <div id="add-container">
+            <input type="text" name="nomeanotation" id="Anotation-name">
+            <button onclick="addAnotacao()"><img id="img-add" style="width: 26px;padding-right: 2px;" src="img/icons/botao-adicionar.png" alt="adicionar"> </button>
+        </div>
         <div id="container-anotacoes">
-            <button> <p>Uepa</p>  </button>
-
             
-            <div id="add-container" onclick="addAnotacao()">
-                <img style="width: 18px;padding-right: 2px;" src="img/icons/botao-adicionar.png" alt="adicionar"> <button style="font-weight: 400; color: #320c4be7;font-size: 10pt;">Nova Anotação</button>
-            </div>
         </div>
     </div>
     <header>

@@ -17,10 +17,10 @@ body{
 }
 /*Classes para o botao hamburguer*/
 .delete{
+    
     display: none
 }
 .border{
-    height: 60px;
     border-bottom: 1px solid;
 }
 /*cabeçalho*/
@@ -36,10 +36,12 @@ header{
 .menu{
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
-    height:60px;
-    width: 50px;
+    height:50px;
     overflow: hidden;
+    width: 50px;
+    
     transition: all 0.3s ease;
 }
 .menuextendido{
@@ -50,11 +52,11 @@ header{
 }
 /*botao hamburguer */
 #hb-button{
-    margin: auto;
-    width: 90%; 
-    height: 60px;
+    width: 90%;
+    margin-top: 24px;
+    height: 35px;
     display: flex;
-    align-items:self-end;
+    align-items:center;
     justify-content: center;
     
 }
@@ -84,16 +86,24 @@ header{
 /* add anotações */
 #add-container{
     height: 30px;
+    width: 90%;
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
+#Anotation-name{
+    width: 100%;
+    margin-right: 10px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 8px;
+    outline: none;
+    text-indent: 5px;
+}
 /* Conteudo de tarefas */
 main{
-    background-color: gray;
     flex: 1;
     padding: 05px;
 }
