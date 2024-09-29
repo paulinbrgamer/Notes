@@ -21,7 +21,7 @@ header{
     flex-direction: column;
     position: absolute;
     height: 100vh;
-    width: 10%;
+    width: 60%;
     overflow: hidden;
     background-color: white;
     transition: all 0.5s ease;
@@ -59,9 +59,7 @@ header{
     border-radius: 2px;
 }
 #add-container{
-    width: 90%;
     height: 30px;
-    margin: auto;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
