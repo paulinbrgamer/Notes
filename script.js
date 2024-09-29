@@ -13,6 +13,7 @@ function selectAnotacao(id){
     title.innerText = allAnotations[id].nome
     anotacaoSelecionada = id
     desenharTasks(id)
+    document.querySelector('main').style.display = 'flex'
 }
 //função que desenha as anotaçoes
 function desenharAnotacoes(){
