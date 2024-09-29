@@ -2,12 +2,13 @@
     margin: 0px;
     padding: 0px;
     font-family: "Roboto", sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     font-style: normal;
     background-color: transparent;
     border: none;
 }
 header{
+    height: 60px;
     display: flex;
     justify-content: space-between;
     background-color: #FFF6FE;
@@ -16,17 +17,53 @@ header{
 }
 /*Botao hamburguer */
 .menu{
-    width: 40px;
-    height: 10vh;
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    
-    transition: all 0.5s ease;
-}
-.menu:hover{
-    background-color: white;
     height: 100vh;
-    width: 60%;
+    width: 10%;
+    overflow: hidden;
+    background-color: white;
+    transition: all 0.5s ease;
+    border-right: 1px solid #CAC4D0;
 }
+
 #hb-button{
-    width: 40px; height: 45px; display: flex; align-items: center; justify-content: center;
+    margin: auto;
+    width: 90%; height: 60px;
+    display: flex;
+    align-items:self-end;
+    justify-content: center;
+    border-bottom: 1px solid;
+}
+/*elementos menu */
+#container-anotacoes{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: auto;
+    margin-top: 10px;
+    width: 90%;
+    flex: 1;
+    overflow: scroll;
+}
+#container-anotacoes > button{
+    word-wrap: break-word; 
+    white-space: normal;
+    font-size: 16px;
+    font-weight: 600;
+    color: #320c4bc0;
+    background-color: #FFF6FE;
+    margin-top: 6px;
+    padding: 15px;
+    border-radius: 2px;
+}
+#add-container{
+    width: 90%;
+    height: 30px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
