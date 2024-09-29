@@ -88,18 +88,19 @@ header{
 #add-container{
     height: 30px;
     width: 90%;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #Anotation-name{
+    font-size: 12pt;
     width: 100%;
     margin-right: 10px;
     border: 1px solid gray;
     border-radius: 8px;
-    padding: 8px;
+    padding: 12px;
     outline: none;
     text-indent: 5px;
 }
@@ -107,4 +108,23 @@ header{
 main{
     flex: 1;
     padding: 05px;
+}
+#main-input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+#input-task{
+    font-weight: 400;
+    font-size: 12pt;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    width: 80%;
+    
+    margin-right: 10px;
+}
+#add-task {
+    height: 30px;
 }

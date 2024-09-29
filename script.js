@@ -31,9 +31,23 @@ function  toggleMenu(){
 //adicionar anotação
 function addAnotacao(){
     var barra = document.getElementById('Anotation-name')
-    var object = {nome: barra.value,task:[]}
-    barra.value = ''
-    allAnotations.push(object)
-    desenharAnotacoes()
+    if (barra.value){
+        var object = {nome: barra.value,task:[]}
+        barra.value = ''
+        allAnotations.push(object)
+        desenharAnotacoes()
+    }
+    else{
+       window.alert("Não pode ter anotação sem nome") 
+    }
+    
     console.log(allAnotations)
+}
+
+//função que verifica se usuario apertou enter no campo de texto
+function Enterkey(event,func){
+    if (event.key == 'Enter'){
+        func()
+    }
+
 }
