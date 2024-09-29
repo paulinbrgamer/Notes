@@ -75,7 +75,7 @@ function addAnotacao(){
         desenharAnotacoes()
     }
     else{
-       window.alert("Não pode ter anotação sem nome") 
+       window.alert("Digite o nome da sua Nota") 
     }
     
     console.log(allAnotations)
@@ -84,11 +84,14 @@ function addAnotacao(){
 function addTask(){
     var campo = document.getElementById('input-task')
     var anota = allAnotations[anotacaoSelecionada]
-    if (campo.value || anotacaoSelecionada){
+    if (campo.value){
         anota.task.push({t_name:campo.value, complete: false})
         console.log(anota)
         campo.value = ''
     }
+    else{
+        window.alert("Digite o nome da tarefa") 
+     }
     desenharTasks(anotacaoSelecionada)
 }
 //função que verifica se usuario apertou enter no campo de texto
