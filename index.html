@@ -29,8 +29,8 @@
     </header>
     <main>
         <div id="main-input">
-            <input id="input-task" type="text" placeholder="Digite a tarefa..." >
-            <button id="add-task"><img src="img/icons/botao-adicionar-maior.png" alt="botao-adicionar"></button>
+            <input onkeydown="Enterkey(event,addTask)" id="input-task" type="text" placeholder="Digite a tarefa..." >
+            <button onclick="addTask()" id="add-task"><img src="img/icons/botao-adicionar-maior.png" alt="botao-adicionar"></button>
         </div>
         <p style="text-align: start; width: 90%; border-bottom: 1px solid;">Tarefas</p>
         <div id="content-task">

@@ -1,5 +1,6 @@
 //varivel que guarda todos os objetos anotaçoes
 var allAnotations = []
+var anotacaoSelecionada
 desenharAnotacoes()
 
 
@@ -10,6 +11,8 @@ function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
     title.innerText = allAnotations[id].nome
+    anotacaoSelecionada = id
+    desenharTasks(id)
 }
 //função que desenha as anotaçoes
 function desenharAnotacoes(){
@@ -20,6 +23,28 @@ function desenharAnotacoes(){
         update =  update+`<button onclick="selectAnotacao(${index})"><p>${obj.nome}</p> </button>`
         container.innerHTML = update
     })
+}
+//desenhar as tarefas da anotação
+function desenharTasks(id){
+    let tasks = ''
+    var selected = allAnotations[id].task
+    var container = document.getElementById('content-task')
+    selected.forEach(tk=>{
+        if (tk.complete == false){
+            tasks = tasks +`
+            <div class="task">
+            <div style="flex: 1; ">
+                <p style=" font-weight: 400;">${tk.t_name}</p>
+            </div>
+            <div id="options">
+                <button class="complete-task"></button>
+                <button class="remove-task"></button>
+            </div>
+            </div>`
+        }
+
+    })
+    container.innerHTML = tasks
 }
 //interação do hambuerguer
 function  toggleMenu(){
@@ -43,7 +68,16 @@ function addAnotacao(){
     
     console.log(allAnotations)
 }
-
+//adicionar task
+function addTask(){
+    var campo = document.getElementById('input-task')
+    var anota = allAnotations[anotacaoSelecionada]
+    if (campo.value || anotacaoSelecionada){
+        anota.task.push({t_name:campo.value, complete: false})
+        console.log(anota)
+    }
+    desenharTasks(anotacaoSelecionada)
+}
 //função que verifica se usuario apertou enter no campo de texto
 function Enterkey(event,func){
     if (event.key == 'Enter'){

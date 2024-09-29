@@ -132,7 +132,7 @@ main{
     border-radius: 8px;
     border: 1px solid gray;
     width: 100%;
-    
+    outline: none;
     margin-right: 10px;
 }
 #add-task {
