@@ -31,6 +31,7 @@ header{
     background-color: #FFF6FE;
     padding: 20px 15px 10px 15px;
     box-sizing: border-box;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
 }
 #title{
     font-weight: 400;
@@ -84,14 +85,17 @@ header{
 /*anotações */
 #container-anotacoes > div > button{
    
-    font-size: 16px;
-    font-weight: 600;
-    color: #320c4bc0;
     background-color: #FFF6FE;
     margin-top: 6px;
     padding: 10px;
-    border-radius: 2px;
+    border-radius: 4px;
+    box-shadow: 1px 8px 10px 1px rgba(0, 0, 0, 0.2);
     flex: 1;
+}
+#container-anotacoes > div > button > p{
+    font-size: 18px;
+    font-weight: 400;
+    color: #320c4b;
 }
 #container-anotacoes > div >img:hover{
     cursor: pointer;
@@ -144,6 +148,7 @@ main{
     width: 100%;
     outline: none;
     margin-right: 10px;
+    
 }
 #add-task {
     height: 30px;
@@ -161,6 +166,7 @@ main{
     width: 97%;
     border-radius: 8px;
     background-color: #FFF6FE;
+    
 }
 .task-checked{
     color: rgb(255, 255, 255);
@@ -195,6 +201,7 @@ main{
 }
 #title-task{
     text-align: start; width: 90%; border-bottom: 1px solid;
+    
 }
 /*Media queries*/
 @media (min-width:500px){
