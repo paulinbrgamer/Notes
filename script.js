@@ -9,6 +9,7 @@ else{
 var anotacaoSelecionada
 var deletado
 desenharAnotacoes()
+
 function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
@@ -149,8 +150,8 @@ function updateStorage(){
 
 function exportNotes(){
     openOptions()
-    var conteudo = localStorage.getItem('dados')
-    var blob = new Blob([conteudo],{type: 'text/plain'})
+    var conteudo = JSON.stringify(allAnotations,null,2)
+    var blob = new Blob([conteudo],{type: 'application/json'})
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
     a.download = 'Notas'
@@ -165,5 +166,28 @@ function openOptions(){
     
 }
 function loadNotes(){
+    openOptions()
+    document.getElementById('file-notas').click()
+}
+function LerNota(event){
+    const file = event.target.files[0]; // Seleciona o primeiro arquivo
     
+    if (file) {
+        const reader = new FileReader();
+
+        // Define o que fazer quando o arquivo for lido
+        reader.onload = function(e) {
+            const content = e.target.result; // Conteúdo do arquivo
+            const json = JSON.parse(content)
+            allAnotations = json
+            console.log(allAnotations)
+            updateStorage()
+            desenharAnotacoes()
+        };
+
+        // Lê o conteúdo do arquivo como texto
+        reader.readAsText(file);
+    } else {
+        alert('Nenhum arquivo selecionado!');
+    }
 }
