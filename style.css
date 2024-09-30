@@ -40,7 +40,7 @@ header{
     justify-self: center;
 }
 #icon-user{
-    background-image: url(img/icons/usuario-de-perfil.png);
+    background-image: url(favicon.png );
     background-repeat: no-repeat;
     background-size: cover;
     height: 30px;
