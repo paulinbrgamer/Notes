@@ -2,11 +2,6 @@
 var allAnotations = []
 var anotacaoSelecionada
 desenharAnotacoes()
-
-
-
-
-
 function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
@@ -21,9 +16,15 @@ function desenharAnotacoes(){
     
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
-        update =  update+`<button onclick="selectAnotacao(${index})"><p>${obj.nome}</p> </button>`
-        container.innerHTML = update
+        update =  update+`<div style="display: flex; align-items: center; justify-content:  space-between;">
+        <button onclick="selectAnotacao(${index})"><p>${obj.nome}</p> </button>
+        <img onclick="removerAnotacao(${index})" style="width: 24px;margin-left: 10px;" src="img/icons/lixeira.png" alt="">
+        </div>`
+        
+        
     })
+    container.innerHTML = update
+    console.log(update)
 }
 //desenhar as tarefas da anotação
 function desenharTasks(id){
@@ -78,7 +79,15 @@ function addAnotacao(){
        window.alert("Digite o nome da sua Nota") 
     }
     
-    console.log(allAnotations)
+}
+//remover anotação
+function removerAnotacao(id){
+    if (anotacaoSelecionada == id){
+        document.getElementById('title').innerText = 'Notes'
+        document.querySelector('main').style.display = 'none'
+    }
+    allAnotations.splice(id,1)
+    desenharAnotacoes()
 }
 //adicionar task
 function addTask(){
@@ -113,3 +122,4 @@ function deletetask(name_t){
     allAnotations[anotacaoSelecionada].task.splice(name_t,1)
     desenharTasks(anotacaoSelecionada)
 }
+
