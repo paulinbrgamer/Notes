@@ -170,6 +170,8 @@ function loadNotes(){
     document.getElementById('file-notas').click()
 }
 function LerNota(event){
+    document.getElementById('title').innerText = 'Notes'
+    document.querySelector('main').style.display = 'none'
     const file = event.target.files[0]; // Seleciona o primeiro arquivo
     
     if (file) {
