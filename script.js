@@ -6,6 +6,7 @@ if ( localStorage.getItem('dados')){
 else{
     var allAnotations = []
 }
+
 var anotacaoSelecionada
 desenharAnotacoes()
 function selectAnotacao(id){
@@ -133,4 +134,5 @@ function deletetask(name_t){
 //funcçao atualizar localstorage
 function updateStorage(){
     localStorage.setItem('dados',JSON.stringify(allAnotations))
+    localStorage.setItem('atual',anotacaoSelecionada)
 }
