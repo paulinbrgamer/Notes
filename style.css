@@ -89,6 +89,7 @@ header{
     margin-top: 10px;
     width: 90%;
     flex: 1;
+    padding: 5px;
     overflow: scroll;
 }
 /*anotações */
@@ -168,10 +169,12 @@ main{
     height: 30px;
 }
 #content-task{
+    padding: 5px;
     width: 90%;
     overflow: scroll;
 }
 .task{
+    box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.3);
     font-size: 14pt;
     text-indent: 10px;
     display: flex;
@@ -180,7 +183,7 @@ main{
     padding: 15px 5px;
     width: 97%;
     border-radius: 8px;
-    background-color: #FFF6FE;
+    background-color: #dcd7f1;
     
 }
 .task-checked{
