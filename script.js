@@ -6,14 +6,15 @@ if ( localStorage.getItem('dados')){
 else{
     var allAnotations = []
 }
-
 var anotacaoSelecionada
+var deletado
 desenharAnotacoes()
 function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
     title.innerText = allAnotations[id].nome
     anotacaoSelecionada = id
+    console.log('selecionou '+(id+1))
     desenharTasks(id)
     document.querySelector('main').style.display = 'flex'
 }
@@ -98,6 +99,11 @@ function removerAnotacao(id){
         document.getElementById('title').innerText = 'Notes'
         document.querySelector('main').style.display = 'none'
     }
+    if (anotacaoSelecionada > id){
+        anotacaoSelecionada--
+    }
+    console.log('apagou '+(id+1))
+    console.log('selected '+(anotacaoSelecionada+1))
     allAnotations.splice(id,1)
     desenharAnotacoes()
     updateStorage()
