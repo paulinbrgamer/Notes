@@ -1,5 +1,11 @@
-//varivel que guarda todos os objetos anotaçoes
-var allAnotations = []
+//varivel que guarda todos os objetos anotaçoes, se tiver algo no local storage
+if ( localStorage.getItem('dados')){
+    var parcer = localStorage.getItem('dados')
+    var allAnotations = JSON.parse(parcer)
+}
+else{
+    var allAnotations = []
+}
 var anotacaoSelecionada
 desenharAnotacoes()
 function selectAnotacao(id){
@@ -24,7 +30,7 @@ function desenharAnotacoes(){
         
     })
     container.innerHTML = update
-    console.log(update)
+
 }
 //desenhar as tarefas da anotação
 function desenharTasks(id){
@@ -74,6 +80,7 @@ function addAnotacao(){
         barra.value = ''
         allAnotations.push(object)
         desenharAnotacoes()
+        updateStorage()
     }
     else{
        window.alert("Digite o nome da sua Nota") 
@@ -88,6 +95,7 @@ function removerAnotacao(id){
     }
     allAnotations.splice(id,1)
     desenharAnotacoes()
+    updateStorage()
 }
 //adicionar task
 function addTask(){
@@ -95,13 +103,13 @@ function addTask(){
     var anota = allAnotations[anotacaoSelecionada]
     if (campo.value){
         anota.task.push({t_name:campo.value, complete: false})
-        console.log(anota)
         campo.value = ''
     }
     else{
         window.alert("Digite o nome da tarefa") 
      }
     desenharTasks(anotacaoSelecionada)
+    updateStorage()
 }
 //função que verifica se usuario apertou enter no campo de texto
 function Enterkey(event,func){
@@ -114,12 +122,15 @@ function Enterkey(event,func){
 //funcão que faz a task ser completada
 function CompleteTask(name_t){
     allAnotations[anotacaoSelecionada].task[name_t].complete = true
-    console.log( allAnotations[anotacaoSelecionada].task[name_t])
     desenharTasks(anotacaoSelecionada)
+    updateStorage()
 }
 function deletetask(name_t){
-    console.log( allAnotations[anotacaoSelecionada].task[name_t])
     allAnotations[anotacaoSelecionada].task.splice(name_t,1)
     desenharTasks(anotacaoSelecionada)
+    updateStorage()
 }
-
+//funcçao atualizar localstorage
+function updateStorage(){
+    localStorage.setItem('dados',JSON.stringify(allAnotations))
+}
