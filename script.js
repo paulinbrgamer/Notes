@@ -146,3 +146,4 @@ function updateStorage(){
     localStorage.setItem('dados',JSON.stringify(allAnotations))
     localStorage.setItem('atual',anotacaoSelecionada)
 }
+

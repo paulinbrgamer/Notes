@@ -34,10 +34,19 @@ header{
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
 }
 #title{
+    margin-top: 3px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.966);
     justify-self: center;
 }
+#icon-user{
+    background-image: url(img/icons/usuario-de-perfil.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+}
+
 /*Menu hamburguer */
 .menu{
     display: flex;
