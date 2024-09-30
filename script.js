@@ -70,7 +70,7 @@ function desenharTasks(id){
 }
 //interação do hambuerguer
 function  toggleMenu(){
-    if (window.innerWidth < 820){
+    if (window.innerWidth < 860){
        var menu = document.getElementById('menu')
     menu.classList.toggle('menuextendido')
     document.getElementById('ant').classList.toggle('delete')
@@ -163,7 +163,6 @@ function openOptions(){
     var btn = document.getElementById('icon-user')
     var modal = document.getElementById('modal-notes')
     modal.classList.toggle('opened-notes')
-    
 }
 function loadNotes(){
     openOptions()

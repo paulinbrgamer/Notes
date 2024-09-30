@@ -62,7 +62,7 @@ header{
 .menuextendido{
     border-right: 1px solid #CAC4D0;
     height: 100vh;
-    width: 60%;
+    width: 100%;
     
     background-color: white;
 }
@@ -95,7 +95,7 @@ header{
 /*anotações */
 #container-anotacoes > div > button{
    
-    background-color: #FFF6FE;
+    background-color: #ffe9fb;
     margin-top: 6px;
     padding: 10px;
     border-radius: 4px;
@@ -174,7 +174,7 @@ main{
     overflow: scroll;
 }
 .task{
-    box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 3px 2px 0px rgba(0, 0, 0, 0.3);
     font-size: 14pt;
     text-indent: 10px;
     display: flex;
@@ -183,10 +183,11 @@ main{
     padding: 15px 5px;
     width: 97%;
     border-radius: 8px;
-    background-color: #dcd7f1;
+    background-color: #ffe9fb;
     
 }
 .task-checked{
+    box-shadow: 1px 3px 2px 0px rgba(0, 0, 0, 0.3);
     font-size: 14pt;
     text-indent: 10px;
     color: rgb(255, 255, 255);
@@ -226,8 +227,11 @@ main{
 }
 /*Media queries*/
 @media (min-width:500px){
-    .menuextendido{
-        max-width: 300px;
+    #add-container{
+        max-width: 400px;
+    }
+    #container-anotacoes{
+        max-width: 400px;
     }
     #main-input{
         max-width: 500px;
@@ -240,7 +244,7 @@ main{
         max-width: 500px;
     }
 }
-@media (min-width:820px){
+@media (min-width:860px){
     .menu{
         
         display: flex;
@@ -249,7 +253,7 @@ main{
         position: absolute;
         overflow: hidden;
         height: 100vh;
-        width: 300px;
+        width: 340px;
         background-color: white;
         border-right: 1px solid #CAC4D0;
     }
@@ -263,23 +267,23 @@ main{
     }
     #main-input{
         margin-top: 40px;
-        margin-left: 300px;
+        margin-left: 340px;
     }
     #content-task{
-        margin-left: 300px;
+        margin-left: 340px;
     }
     #title-task{
-        margin-left: 300px;
+        margin-left: 340px;
     }
     #title{
-        margin-left: 300px;
+        margin-left: 340px;
     }
 
     
 }
 .m-notes{
     
-    display: flex;
+    display: none;
     flex-direction: column;
     margin-top: -5px;
     border-radius: 4px;
@@ -287,8 +291,6 @@ main{
     padding: 10px;
     position: absolute;
     width: 140px;
-    
-    opacity: 0;
     transition: all 0.2s ease;
 }
 .opened-notes{
