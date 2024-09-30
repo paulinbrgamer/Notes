@@ -200,10 +200,10 @@ main{
 @media (min-width:500px){
     .menuextendido{
         max-width: 300px;
-        
     }
     #main-input{
         max-width: 500px;
+        
     }
     #content-task{
         max-width: 500px;
@@ -212,7 +212,7 @@ main{
         max-width: 500px;
     }
 }
-@media (min-width:1200px){
+@media (min-width:820px){
     .menu{
         
         display: flex;
@@ -233,4 +233,18 @@ main{
     #ant{
         display: block;
     }
+    #main-input{
+        margin-top: 40px;
+        margin-left: 300px;
+    }
+    #content-task{
+        margin-left: 300px;
+    }
+    #title-task{
+        margin-left: 300px;
+    }
+    #title{
+        margin-left: 300px;
+    }
 }
+

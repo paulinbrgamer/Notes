@@ -68,7 +68,7 @@ function desenharTasks(id){
 }
 //interação do hambuerguer
 function  toggleMenu(){
-    if (window.innerWidth < 1200){
+    if (window.innerWidth < 820){
        var menu = document.getElementById('menu')
     menu.classList.toggle('menuextendido')
     document.getElementById('ant').classList.toggle('delete')
