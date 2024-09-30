@@ -184,3 +184,22 @@ main{
     background-image: url(img/icons/completo.png);
     background-size: contain;
 }
+#title-task{
+    text-align: start; width: 90%; border-bottom: 1px solid;
+}
+/*Media queries*/
+@media (min-width:500px){
+    .menuextendido{
+        max-width: 300px;
+        
+    }
+    #main-input{
+        max-width: 500px;
+    }
+    #content-task{
+        max-width: 500px;
+    }
+    #title-task{
+        max-width: 500px;
+    }
+}
