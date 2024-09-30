@@ -79,7 +79,7 @@ header{
 }
 /*anotações */
 #container-anotacoes > div > button{
-    word-wrap: break-word;
+   
     font-size: 16px;
     font-weight: 600;
     color: #320c4bc0;
@@ -178,7 +178,7 @@ main{
     background-size: contain;
 }
 .complete-task{
-    margin-right: 10px;
+    margin-right: 20px;
     width: 20px;
     height: 20px;
     background-image: url(img/icons/completo.png);
