@@ -271,5 +271,41 @@ main{
     #title{
         margin-left: 300px;
     }
-}
 
+    
+}
+.m-notes{
+    
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+    border-radius: 4px;
+    margin-right: 35px;
+    padding: 10px;
+    position: absolute;
+    width: 140px;
+    
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+.opened-notes{
+    opacity: 1;
+    display: flex;
+    background-color: #f5ebf4;
+}
+#save{
+    font-size: 12pt;
+    padding: 5px;
+    border-radius: 2px;
+}
+#load{
+    font-size: 12pt;
+    padding: 5px;
+    border-radius: 2px;
+}
+#save:hover{
+    background-color: #FFF6FE;
+}
+#load:hover{
+    background-color: #FFF6FE;
+}

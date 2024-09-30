@@ -27,8 +27,11 @@
     </div>
     <header>
         <div style="flex: 1; text-align: center; padding-left: 24px;"><h3 id="title">Notes</h3></div>
-        <button onclick="MudarTema()" id="icon-user"></button>
-        
+        <button onclick="openOptions()" id="icon-user"></button>
+        <div id="modal-notes" class="m-notes">
+            <button onclick="exportNotes()" id="save">Salvar</button>
+            <button onclick="loadNotes()"  id="load">Carregar</button>
+        </div>
     </header>
     <main>
         <div id="main-input">

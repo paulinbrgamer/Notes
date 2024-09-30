@@ -147,3 +147,23 @@ function updateStorage(){
     localStorage.setItem('atual',anotacaoSelecionada)
 }
 
+function exportNotes(){
+    openOptions()
+    var conteudo = localStorage.getItem('dados')
+    var blob = new Blob([conteudo],{type: 'text/plain'})
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = 'Notas'
+    document.querySelector('body').appendChild(a)
+    a.click()
+}  
+function openOptions(){
+    console.log('abrir')
+    var btn = document.getElementById('icon-user')
+    var modal = document.getElementById('modal-notes')
+    modal.classList.toggle('opened-notes')
+    
+}
+function loadNotes(){
+    
+}
