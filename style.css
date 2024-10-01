@@ -277,28 +277,31 @@ main{
     
 }
 .m-notes{
-    
-    display: none;
-    flex-direction: column;
-    margin-top: -5px;
-    border-radius: 4px;
-    margin-right: 35px;
-    padding: 10px;
-    position: absolute;
-    width: 140px;
-    transition: all 0.2s ease;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+display: none;
+flex-direction: column;
+margin-top: -5px; 
+margin-right: 35px;
+padding: 5px;  
+border-radius: 2px;
+position: absolute;
+width: 140px;
+transition: all 0.2s ease;
 }
 .opened-notes{
+    
     opacity: 1;
     display: flex;
-    background-color: #f5ebf4;
+    background-color: #FFF6FE;
 }
 #save{
+    font-weight: 400;
     font-size: 12pt;
     padding: 5px;
     border-radius: 2px;
 }
 #load{
+    font-weight: 400;
     font-size: 12pt;
     padding: 5px;
     border-radius: 2px;
@@ -308,4 +311,7 @@ main{
 }
 #load:hover{
     background-color: #FFF6FE;
+}
+.ho:hover{
+    cursor: pointer;
 }
