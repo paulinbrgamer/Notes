@@ -25,7 +25,7 @@ function desenharAnotacoes(){
     
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
-        update =  update+`<div onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray; padding-bottom: 5px; ">
+        update =  update+`<div onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray;">
         <button ><p>${obj.nome}</p> </button>
         <img onclick="removerAnotacao(event,${index})" style="width: 24px;margin-left: 10px; margin-top: 10px;" src="img/icons/lixeira.png" alt="">
         </div>`

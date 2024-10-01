@@ -97,6 +97,7 @@ header{
     margin-top: 10px;
     padding: 10px;
     border-radius: 4px;
+
 }
 #container-anotacoes > div > button > p{
     font-size: 18px;
@@ -125,6 +126,7 @@ button:hover{
     justify-content: center;
 }
 #Anotation-name{
+    font-weight: 400;
     font-size: 12pt;
     width: 100%;
     margin-right: 10px;
@@ -170,7 +172,6 @@ main{
     overflow: scroll;
 }
 .task{
-    box-shadow: 1px 3px 2px 0px rgba(0, 0, 0, 0.3);
     font-size: 14pt;
     text-indent: 10px;
     display: flex;
@@ -180,7 +181,6 @@ main{
     width: 97%;
     border-radius: 8px;
     background-color: #ffe9fb;
-    
 }
 .task-checked{
     box-shadow: 1px 3px 2px 0px rgba(0, 0, 0, 0.3);
