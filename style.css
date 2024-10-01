@@ -183,7 +183,6 @@ main{
     background-color: #ffe9fb;
 }
 .task-checked{
-    box-shadow: 1px 3px 2px 0px rgba(0, 0, 0, 0.3);
     font-size: 14pt;
     text-indent: 10px;
     color: rgb(255, 255, 255);
