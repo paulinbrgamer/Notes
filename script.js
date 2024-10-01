@@ -25,9 +25,9 @@ function desenharAnotacoes(){
     
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
-        update =  update+`<div style="display: flex; align-items: center; justify-content:  space-between;">
-        <button onclick="selectAnotacao(${index})"><p>${obj.nome}</p> </button>
-        <img onclick="removerAnotacao(${index})" style="width: 24px;margin-left: 10px; margin-top: 10px;" src="img/icons/lixeira.png" alt="">
+        update =  update+`<div onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray; padding-bottom: 5px; ">
+        <button ><p>${obj.nome}</p> </button>
+        <img onclick="removerAnotacao(event,${index})" style="width: 24px;margin-left: 10px; margin-top: 10px;" src="img/icons/lixeira.png" alt="">
         </div>`
         
         
@@ -95,7 +95,8 @@ function addAnotacao(){
     
 }
 //remover anotação
-function removerAnotacao(id){
+function removerAnotacao(event,id){
+    event.stopPropagation();
     if (anotacaoSelecionada == id){
         document.getElementById('title').innerText = 'Notes'
         document.querySelector('main').style.display = 'none'
