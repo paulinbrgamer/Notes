@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 97vh;
+        }
+        div{
+            box-shadow: 6px 6px 14px 1px rgba(128, 128, 128, 0.452);
+            border: 1px solid rgba(95, 93, 93, 0.719);
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 8px;
+            padding: 10px 30px;
+            background-color: rgb(240, 233, 245);
+            width: 300px;
+            height: 400px;
+        }
+        input{
+            margin-top: 130px;
+            width: 200px;
+            outline:none;
+            border-radius: 40px;
+            border: 1px solid gray;
+            font-size: 16pt;
+            padding: 5px;
+            text-indent: 15px;
+        }
+        button{
+            font-size: 14pt;
+            margin-top: 30px;
+            background-color: white;
+            padding: 6px 25px;
+            border-radius: 4px;
+            border: 1px solid gray;
+            transition: all 0.3s ease
+            ;
+        }
+        button:hover{
+            cursor: pointer;
+            background-color: rgb(234, 222, 243);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Digite o seu acesso</h1>
+        <input  type="number" name="user" id="user-cod">
+        <button onclick="Validar()">Entrar</button>
+    </div>
+    <script>
+        const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Usuário'
+        const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
+        async function verify(input_login){
+            const respo = await fetch(url,{
+                method:'GET',
+                headers: {
+                    'apikey': key,
+                    'Authorization': `Bearer ${key}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            if(!respo.ok){
+                console.log("Deu erro ai")
+            }
+            const banco = await respo.json()
+            for (let user of banco){
+                if (user.Login == Number(input_login)){
+                    localStorage.setItem('id_user',String(user.id))
+                    var a = document.createElement('a')
+                    a.href = 'index.html'
+                    a.click()
+                }
+                
+                
+            }
+            window.alert("Login invalido! Tente novamente")
+        }
+        
+        function Validar(){
+            var value_input = document.getElementById('user-cod').value
+            verify(value_input)
+        }
+    </script>
+</body>
+</html>

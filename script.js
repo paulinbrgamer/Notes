@@ -1,7 +1,9 @@
 const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação'
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
-var notes;
-async function getNotes() {
+var data;
+var usuario = Number(localStorage.getItem('id_user'))
+localStorage.setItem('id_user','')
+async function getData() {
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -11,24 +13,40 @@ async function getNotes() {
             'Accept': 'application/json',
         },
     });
-    if (!response.ok) {
-        throw new Error('Erro ao buscar dados');
+    const tasks = await fetch('https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa',{
+        method: 'GET',
+        headers: {
+            'apikey': key,
+            'Authorization': `Bearer ${key}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+    })
+    if(!tasks.ok){
+        console.log("erro nas tarefas")
     }
-    const data = await response.json();
-    allAnotations.push({nome: data[0].Nome,task:[]})
+    if (!response.ok) {
+        throw new Error('Erro ao buscar dados de anotação');
+    }
+    const data = await response.json()
+    const tarefa = await tasks.json()
+    for (let anotacao of data){
+        if(anotacao.fk_user == usuario ){
+            var object = {nome: anotacao.Nome,task:[]}
+            for (let t of tarefa){
+                if(t.FK == anotacao.id){
+                    object.task.push({t_name:t.Nome, complete: t.Completo})
+                }
+            }
+            allAnotations.push(object)
+        }
+    }
     desenharAnotacoes()
-    updateStorage()
     console.log(allAnotations)
+    
 }
 var allAnotations = []
-getNotes()
-
-
-//varivel que guarda todos os objetos anotaçoes, se tiver algo no local storage
-if ( localStorage.getItem('dados')){
-    var parcer = localStorage.getItem('dados')
-    allAnotations = JSON.parse(parcer)
-}
+getData()
 var anotacaoSelecionada
 var deletado
 function selectAnotacao(id){
@@ -107,7 +125,7 @@ function addAnotacao(){
         barra.value = ''
         allAnotations.push(object)
         desenharAnotacoes()
-        updateStorage()
+        
     }
     else{
        window.alert("Digite o nome da sua Nota") 
@@ -118,7 +136,7 @@ function addAnotacao(){
 function removerAnotacao(event,id){
     event.stopPropagation();
     if (anotacaoSelecionada == id){
-        document.getElementById('title').innerText = 'Notes'
+        document.getElementById('title').innerText = 'Data'
         document.querySelector('main').style.display = 'none'
     }
     if (anotacaoSelecionada > id){
@@ -128,7 +146,7 @@ function removerAnotacao(event,id){
     console.log('selected '+(anotacaoSelecionada+1))
     allAnotations.splice(id,1)
     desenharAnotacoes()
-    updateStorage()
+    
 }
 //adicionar task
 function addTask(){
@@ -142,7 +160,6 @@ function addTask(){
         window.alert("Digite o nome da tarefa") 
      }
     desenharTasks(anotacaoSelecionada)
-    updateStorage()
 }
 //função que verifica se usuario apertou enter no campo de texto
 function Enterkey(event,func){
@@ -156,20 +173,14 @@ function Enterkey(event,func){
 function CompleteTask(name_t){
     allAnotations[anotacaoSelecionada].task[name_t].complete = true
     desenharTasks(anotacaoSelecionada)
-    updateStorage()
 }
 function deletetask(name_t){
     allAnotations[anotacaoSelecionada].task.splice(name_t,1)
     desenharTasks(anotacaoSelecionada)
-    updateStorage()
-}
-//funcçao atualizar localstorage
-function updateStorage(){
-    localStorage.setItem('dados',JSON.stringify(allAnotations))
-    localStorage.setItem('atual',anotacaoSelecionada)
 }
 
-function exportNotes(){
+
+function exportData(){
     openOptions()
     var conteudo = JSON.stringify(allAnotations,null,2)
     var blob = new Blob([conteudo],{type: 'application/json'})
@@ -182,34 +193,6 @@ function exportNotes(){
 function openOptions(){
     console.log('abrir')
     var btn = document.getElementById('icon-user')
-    var modal = document.getElementById('modal-notes')
-    modal.classList.toggle('opened-notes')
-}
-function loadNotes(){
-    openOptions()
-    document.getElementById('file-notas').click()
-}
-function LerNota(event){
-    document.getElementById('title').innerText = 'Notes'
-    document.querySelector('main').style.display = 'none'
-    const file = event.target.files[0]; // Seleciona o primeiro arquivo
-    
-    if (file) {
-        const reader = new FileReader();
-
-        // Define o que fazer quando o arquivo for lido
-        reader.onload = function(e) {
-            const content = e.target.result; // Conteúdo do arquivo
-            const json = JSON.parse(content)
-            allAnotations = json
-            console.log(allAnotations)
-            updateStorage()
-            desenharAnotacoes()
-        };
-
-        // Lê o conteúdo do arquivo como texto
-        reader.readAsText(file);
-    } else {
-        alert('Nenhum arquivo selecionado!');
-    }
+    var modal = document.getElementById('modal-Data')
+    modal.classList.toggle('opened-Data')
 }
