@@ -1,15 +1,36 @@
+const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação'
+const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
+var notes;
+async function getNotes() {
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'apikey': key,
+            'Authorization': `Bearer ${key}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error('Erro ao buscar dados');
+    }
+    const data = await response.json();
+    allAnotations.push({nome: data[0].Nome,task:[]})
+    desenharAnotacoes()
+    updateStorage()
+    console.log(allAnotations)
+}
+var allAnotations = []
+getNotes()
+
+
 //varivel que guarda todos os objetos anotaçoes, se tiver algo no local storage
 if ( localStorage.getItem('dados')){
     var parcer = localStorage.getItem('dados')
-    var allAnotations = JSON.parse(parcer)
-}
-else{
-    var allAnotations = []
+    allAnotations = JSON.parse(parcer)
 }
 var anotacaoSelecionada
 var deletado
-desenharAnotacoes()
-
 function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
@@ -22,7 +43,6 @@ function selectAnotacao(id){
 //função que desenha as anotaçoes
 function desenharAnotacoes(){
     let update = ''
-    
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
         update =  update+`<div class= "ho" onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray;">
