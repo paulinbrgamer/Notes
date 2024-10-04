@@ -314,9 +314,10 @@ transition: all 0.2s ease;
 }
 .ho:hover{
     border-radius: 5px;
-    background-color: #ebdce9;
+    background-color: #e9e3e8;
     cursor: pointer;
 }
 .selected{
-    background-color: #ebdce9;
+    border-radius: 5px;
+    background-color: #fceefa;
 }
