@@ -1,49 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
-    <title>iNotez</title>
+    <title>Login</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 97vh;
+        }
+        div{
+            box-shadow: 6px 6px 14px 1px rgba(128, 128, 128, 0.452);
+            border: 1px solid rgba(95, 93, 93, 0.719);
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 8px;
+            padding: 10px 30px;
+            background-color: rgb(240, 233, 245);
+            width: 300px;
+            height: 400px;
+        }
+        input{
+            margin-top: 130px;
+            width: 200px;
+            outline:none;
+            border-radius: 40px;
+            border: 1px solid gray;
+            font-size: 16pt;
+            padding: 5px;
+            text-indent: 15px;
+        }
+        button{
+            font-size: 14pt;
+            margin-top: 30px;
+            background-color: white;
+            padding: 6px 25px;
+            border-radius: 4px;
+            border: 1px solid gray;
+            transition: all 0.3s ease
+            ;
+        }
+        button:hover{
+            cursor: pointer;
+            background-color: rgb(234, 222, 243);
+        }
+    </style>
 </head>
 <body>
-    <div id="menu" class="menu">
-        <div onclick="toggleMenu()" id="hb-button" >
-            <button ><img src="img/icons/prancheta.png" alt="prancheta"></button>
-            <h5 id="ant" class="delete">Anotações</h5>
-        </div>
-        <div id="add-container">
-            <input type="text" name="nomeanotation" id="Anotation-name" onkeydown="Enterkey(event,addAnotacao)">
-            <button onclick="addAnotacao()"><img id="img-add" style="width: 26px;padding-right: 2px;" src="img/icons/botao-adicionar.png" alt="adicionar"> </button>
-        </div>
-        <div id="container-anotacoes">
-            
-            
-        </div>
+    <div>
+        <h1>Digite o seu acesso</h1>
+        <input  type="number" name="user" id="user-cod">
+        <button onclick="Validar()">Entrar</button>
     </div>
-    <header>
-        <div style="flex: 1; text-align: center; padding-left: 24px;"><h3 id="title">Notes</h3></div>
-        <button onclick="openOptions()" id="icon-user"></button>
-        <div id="modal-notes" class="m-notes">
-            <button onclick="exportNotes()" id="save">Salvar</button>
-            <button onclick="loadNotes()"  id="load">Carregar</button>
-            <input onchange="LerNota(event)" style="display: none;" type="file" name="lernotas" id="file-notas">
-        </div>
-    </header>
-    <main>
-        <div id="main-input">
-            <input onkeydown="Enterkey(event,addTask)" id="input-task" type="text" placeholder="Digite a tarefa..." >
-            <button onclick="addTask()" id="add-task"><img src="img/icons/botao-adicionar-maior.png" alt="botao-adicionar"></button>
-        </div>
-        <p id="title-task" >Tarefas</p>
-        <div id="content-task">
-           
-        </div>
-    </main>
-    <script src="script.js"></script>
+    <script>
+        const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Usuário'
+        const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
+        async function verify(input_login){
+            const respo = await fetch(url,{
+                method:'GET',
+                headers: {
+                    'apikey': key,
+                    'Authorization': `Bearer ${key}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            if(!respo.ok){
+                console.log("Deu erro ai")
+            }
+            const banco = await respo.json()
+            for (let user of banco){
+                if (user.Login == Number(input_login)){
+                    localStorage.setItem('id_user','')
+                    localStorage.setItem('id_user',String(user.id))
+                    var a = document.createElement('a')
+                    a.href = 'Notes.html'
+                    a.click()
+                }
+                
+                
+            }
+            window.alert("Login invalido! Tente novamente")
+        }
+        
+        function Validar(){
+            var value_input = document.getElementById('user-cod').value
+            verify(value_input)
+        }
+    </script>
 </body>
 </html>

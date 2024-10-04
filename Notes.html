@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <title>iNotez</title>
+</head>
+<body>
+    <div id="menu" class="menu">
+        <div onclick="toggleMenu()" id="hb-button" >
+            <button ><img src="img/icons/prancheta.png" alt="prancheta"></button>
+            <h5 id="ant" class="delete">Anotações</h5>
+        </div>
+        <div id="add-container">
+            <input type="text" name="nomeanotation" id="Anotation-name" onkeydown="Enterkey(event,addAnotacao)">
+            <button onclick="addAnotacao()"><img id="img-add" style="width: 26px;padding-right: 2px;" src="img/icons/botao-adicionar.png" alt="adicionar"> </button>
+        </div>
+        <div id="container-anotacoes">
+            
+            
+        </div>
+    </div>
+    <header>
+        <div style="flex: 1; text-align: center; padding-left: 24px;"><h3 id="title">Notes</h3></div>
+        <button onclick="openOptions()" id="icon-user"></button>
+        <div id="modal-notes" class="m-notes">
+            <button onclick="exportNotes()" id="save">Salvar</button>
+            <button onclick="loadNotes()"  id="load">Carregar</button>
+            <input onchange="LerNota(event)" style="display: none;" type="file" name="lernotas" id="file-notas">
+        </div>
+    </header>
+    <main>
+        <div id="main-input">
+            <input onkeydown="Enterkey(event,addTask)" id="input-task" type="text" placeholder="Digite a tarefa..." >
+            <button onclick="addTask()" id="add-task"><img src="img/icons/botao-adicionar-maior.png" alt="botao-adicionar"></button>
+        </div>
+        <p id="title-task" >Tarefas</p>
+        <div id="content-task">
+           
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

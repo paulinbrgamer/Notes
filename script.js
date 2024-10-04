@@ -1,4 +1,5 @@
 var usuario = Number(localStorage.getItem('id_user'))
+console.log(usuario)
 const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?fk_user=eq.${usuario}`
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
 var data;
@@ -141,7 +142,7 @@ function  toggleMenu(){
 async function addAnotacao(){
     var barra = document.getElementById('Anotation-name')
     if (barra.value){
-        var object = {id:allAnotations.length,Nome: barra.value,task:[],fk_user:usuario}
+        var object = {Nome: barra.value,task:[],fk:usuario}
         barra.value = ''
         const url_post = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação`
         const note_post = await fetch(url_post,{
@@ -151,7 +152,7 @@ async function addAnotacao(){
             'Authorization': `Bearer ${key}`,
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({id:object.id,Nome:object.Nome,fk_user:object.fk_user})
+            body: JSON.stringify({Nome:object.Nome,fk_user:object.fk})
         })
         if(note_post){
             console.log("Deu certo")
