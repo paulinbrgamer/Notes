@@ -6,14 +6,19 @@
     <title>Login</title>
     <style>
         body{
+            background-color: antiquewhite;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 97vh;
         }
+        h3{
+            margin-top: 60px;
+            margin-bottom: 8px;
+        }
         div{
             box-shadow: 6px 6px 14px 1px rgba(128, 128, 128, 0.452);
-            border: 1px solid rgba(95, 93, 93, 0.719);
+            border: 1px solid rgba(75, 73, 73, 0.719);
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
             border-radius: 8px;
@@ -23,20 +28,20 @@
             height: 400px;
         }
         input{
-            margin-top: 130px;
-            width: 200px;
+            
+            width: 150px;
             outline:none;
-            border-radius: 40px;
+            border-radius: 5px;
             border: 1px solid gray;
             font-size: 16pt;
             padding: 5px;
             text-indent: 15px;
         }
         button{
-            font-size: 14pt;
-            margin-top: 30px;
+            font-size: 12pt;
+            margin-top: 10px;
             background-color: white;
-            padding: 6px 25px;
+            padding: 5px 10px;
             border-radius: 4px;
             border: 1px solid gray;
             transition: all 0.3s ease
@@ -51,14 +56,20 @@
 <body>
     <div>
         <h1>Digite o seu acesso</h1>
-        <input  type="number" name="user" id="user-cod">
-        <button onclick="Validar()">Entrar</button>
+        <h3>Login</h3>
+        <span style="display: flex; flex-direction: column; align-items: center; justify-content:  center;">
+            <input  type="number" name="user" id="user-cod">
+            <button onclick="Validar()">Entrar</button>
+        </span>
+
     </div>
     <script>
-        const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Usuário'
+        
         const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
         async function verify(input_login){
-            const respo = await fetch(url,{
+            if(input_login){
+                const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Usuário?Login=eq.${input_login}`
+                const respo = await fetch(url,{
                 method:'GET',
                 headers: {
                     'apikey': key,
@@ -69,20 +80,24 @@
             })
             if(!respo.ok){
                 console.log("Deu erro ai")
+                
             }
-            const banco = await respo.json()
-            for (let user of banco){
-                if (user.Login == Number(input_login)){
+            else{
+                const banco = await respo.json()
+                if(!banco[0]){
+                    window.alert("Login invalido! Tente novamente")
+                }
+                else{
                     localStorage.setItem('id_user','')
-                    localStorage.setItem('id_user',String(user.id))
+                    localStorage.setItem('id_user',banco[0].id)
                     var a = document.createElement('a')
                     a.href = 'Notes.html'
                     a.click()
                 }
-                
-                
+            }    
             }
-            window.alert("Login invalido! Tente novamente")
+            
+                    
         }
         
         function Validar(){

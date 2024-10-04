@@ -39,7 +39,6 @@ async function getData() {
         }
          allAnotations.push(object)
          desenharAnotacoes()
-         console.log(object)
     }
    
     
@@ -64,10 +63,11 @@ function selectAnotacao(id){
     var title = document.getElementById('title')
     if (allAnotations[id]){
         title.innerText = allAnotations[id].Nome
+        anotacaoSelecionada = id
+        document.querySelector('main').style.display = 'flex'
+        desenharTasks(id)
     }
-    anotacaoSelecionada = id
-    document.querySelector('main').style.display = 'flex'
-    desenharTasks(id)
+
 }
 //função que desenha as anotaçoes
 function desenharAnotacoes(){
@@ -158,7 +158,6 @@ async function addAnotacao(){
             var s = await note_post.json()
             object.id = s[0].id
             allAnotations.push(object)
-            console.log(object)
             desenharAnotacoes()
         }
         
@@ -171,7 +170,6 @@ async function addAnotacao(){
 }
 //remover anotação
 async function removerAnotacao(event,idx){
-    console.log("element "+allAnotations[idx].Nome)
     event.stopPropagation();
     //apagar agora a anotação
     const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[idx].id}`
@@ -191,10 +189,9 @@ async function removerAnotacao(event,idx){
         if(anotacaoSelecionada > idx){
             anotacaoSelecionada--
         }
-        
         allAnotations.splice(idx,1)
         desenharAnotacoes()   
-        selectAnotacao(anotacaoSelecionada) 
+         
     }
     else{
         console.log("deu ruim pra apagar")
