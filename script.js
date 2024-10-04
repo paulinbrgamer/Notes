@@ -20,7 +20,6 @@ async function getData() {
     const data = await response.json()
     allAnotations = []
     for (let a of data){
-        
         var object = {id:a.id,nome: a.Nome,task:[],fk:a.fk_user}
         const tasks = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?FK=eq.${a.id}`,{
             method: 'GET',
@@ -38,7 +37,6 @@ async function getData() {
         for (let t of tarefa){
             object.task.push({id:t.id,t_name:t.Nome, complete: t.Completo,fk: t.FK})
         }
-        console.log(object)
          allAnotations.push(object)
          desenharAnotacoes()
     }
@@ -146,12 +144,14 @@ async function removerAnotacao(event,idx){
         }
     })
     if(deleteResponse.ok){
-        console.log("Apagou "+allAnotations[idx])
         if (anotacaoSelecionada == idx){
             document.getElementById('title').innerText = 'Data'
             document.querySelector('main').style.display = 'none'
         }
-        getData()
+        if(anotacaoSelecionada > idx){
+            anotacaoSelecionada--
+        }
+        allAnotations.splice(idx,1)
         desenharAnotacoes()    
     }
     else{
