@@ -20,7 +20,7 @@ async function getData() {
     const data = await response.json()
     allAnotations = []
     for (let a of data){
-        var object = {id:a.id,nome: a.Nome,task:[],fk:a.fk_user}
+        var object = {id:a.id,Nome: a.Nome,task:[],fk:a.fk_user}
         const tasks = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?FK=eq.${a.id}`,{
             method: 'GET',
             headers: {
@@ -52,14 +52,22 @@ function selectAnotacao(id){
     var anot = document.getElementById(id)
     var all = document.getElementsByClassName('selected')
     for(let el of all){
-        el.classList.remove('selected')
+        if (el){
+            el.classList.remove('selected')
+        }
+        
     }
-    anot.classList.add('selected')
+    if (anot){
+        anot.classList.add('selected')
+    }
+    
     var title = document.getElementById('title')
-    title.innerText = allAnotations[id].nome
+    if (allAnotations[id]){
+        title.innerText = allAnotations[id].Nome
+    }
     anotacaoSelecionada = id
-    desenharTasks(id)
     document.querySelector('main').style.display = 'flex'
+    desenharTasks(id)
 }
 //função que desenha as anotaçoes
 function desenharAnotacoes(){
@@ -67,7 +75,7 @@ function desenharAnotacoes(){
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
         update =  update+`<div id="${index}" class= "ho" onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray;">
-        <button ><p>${obj.nome}</p> </button>
+        <button ><p>${obj.Nome}</p> </button>
         <img onclick="removerAnotacao(event,${index})" style="width: 24px;margin-left: 10px; margin-top: 10px;" src="img/icons/lixeira.png" alt="">
         </div>`
         
@@ -79,34 +87,43 @@ function desenharAnotacoes(){
 //desenhar as tarefas da anotação
 function desenharTasks(id){
     let tasks = ''
-    var selected = allAnotations[id].task
+    if (allAnotations[anotacaoSelecionada]){
+        var selected = allAnotations[anotacaoSelecionada].task
+    }
+    
     var container = document.getElementById('content-task')
-    selected.forEach((tk,index)=>{
-        if (tk.complete == false){
-            tasks = tasks +`
-            <div class="task">
-            <div style="flex: 1; ">
-                <p style=" font-weight: 400;">${tk.t_name}</p>
-            </div>
-            <div id="options">
-                <button onclick = "CompleteTask(${index})" class="complete-task"></button>
-                <button onclick = "deletetask(${index})"  class="remove-task"></button>
-            </div>
-            </div>`
-        }
-        else{
-            tasks = tasks +`
-            <div class="task-checked">
-            <div style="flex: 1; ">
-                <p style=" font-weight: 400;">${tk.t_name}</p>
-            </div>
-            <div id="options">
-                <button onclick = "deletetask(${index})"  class="remove-task"></button>
-            </div>
-            </div>`
-        }
-
-    })
+    if(selected){
+        selected.forEach((tk,index)=>{
+            
+            if (tk.complete == false){
+                tasks = tasks +`
+                <div class="task">
+                <div style="flex: 1; ">
+                    <p style=" font-weight: 400;">${tk.t_name}</p>
+                </div>
+                <div id="options">
+                    <button onclick = "CompleteTask(${index})" class="complete-task"></button>
+                    <button onclick = "deletetask(${index})"  class="remove-task"></button>
+                </div>
+                </div>`
+            }
+            else{
+                tasks = tasks +`
+                <div class="task-checked">
+                <div style="flex: 1; ">
+                    <p style=" font-weight: 400;">${tk.t_name}</p>
+                </div>
+                <div id="options">
+                    <button onclick = "deletetask(${index})"  class="remove-task"></button>
+                </div>
+                </div>`
+            }
+            
+            
+    
+        })
+        
+    }
     container.innerHTML = tasks
 }
 //interação do hambuerguer
@@ -124,11 +141,25 @@ function  toggleMenu(){
 async function addAnotacao(){
     var barra = document.getElementById('Anotation-name')
     if (barra.value){
-        var object = {nome: barra.value,task:[]}
+        var object = {id:allAnotations.length,Nome: barra.value,task:[],fk_user:usuario}
         barra.value = ''
+        const url_post = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação`
+        const note_post = await fetch(url_post,{
+            method: 'POST',
+            headers: {
+            'apikey': key,
+            'Authorization': `Bearer ${key}`,
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id:object.id,Nome:object.Nome,fk_user:object.fk_user})
+        })
+        if(note_post){
+            console.log("Deu certo")
+            allAnotations.push(object)
+            console.log(allAnotations)
+            desenharAnotacoes()
+        }
         
-        allAnotations.push(object)
-        desenharAnotacoes()
         
     }
     else{
