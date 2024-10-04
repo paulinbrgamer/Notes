@@ -1,5 +1,4 @@
 var usuario = Number(localStorage.getItem('id_user'))
-console.log(usuario)
 const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?fk_user=eq.${usuario}`
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
 var data;
@@ -40,9 +39,9 @@ async function getData() {
         }
          allAnotations.push(object)
          desenharAnotacoes()
+         console.log(object)
     }
    
-    
     
 }
 var anotacaoSelecionada
@@ -142,7 +141,7 @@ function  toggleMenu(){
 async function addAnotacao(){
     var barra = document.getElementById('Anotation-name')
     if (barra.value){
-        var object = {Nome: barra.value,task:[],fk:usuario}
+        var object = {id:'',Nome: barra.value,task:[],fk:usuario}
         barra.value = ''
         const url_post = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação`
         const note_post = await fetch(url_post,{
@@ -151,13 +150,15 @@ async function addAnotacao(){
             'apikey': key,
             'Authorization': `Bearer ${key}`,
             'Content-Type': 'application/json',
+            'Prefer': 'return=representation',
             },
             body: JSON.stringify({Nome:object.Nome,fk_user:object.fk})
         })
         if(note_post){
-            console.log("Deu certo")
+            var s = await note_post.json()
+            object.id = s[0].id
             allAnotations.push(object)
-            console.log(allAnotations)
+            console.log(object)
             desenharAnotacoes()
         }
         
@@ -170,6 +171,7 @@ async function addAnotacao(){
 }
 //remover anotação
 async function removerAnotacao(event,idx){
+    console.log("element "+allAnotations[idx].Nome)
     event.stopPropagation();
     //apagar agora a anotação
     const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[idx].id}`
@@ -189,6 +191,7 @@ async function removerAnotacao(event,idx){
         if(anotacaoSelecionada > idx){
             anotacaoSelecionada--
         }
+        
         allAnotations.splice(idx,1)
         desenharAnotacoes()   
         selectAnotacao(anotacaoSelecionada) 
