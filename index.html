@@ -13,22 +13,22 @@
             height: 97vh;
         }
         h3{
-            margin-top: 60px;
-            margin-bottom: 8px;
+            margin-right: 10px;
         }
         div{
+            
             box-shadow: 6px 6px 14px 1px rgba(128, 128, 128, 0.452);
             border: 1px solid rgba(75, 73, 73, 0.719);
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
             border-radius: 8px;
             padding: 10px 30px;
-            background-color: rgb(240, 233, 245);
+            background-color: rgb(255, 255, 255);
             width: 300px;
-            height: 400px;
+            height: 300px;
         }
         input{
-            
+            text-align: center;
             width: 150px;
             outline:none;
             border-radius: 5px;
@@ -39,7 +39,7 @@
         }
         button{
             font-size: 12pt;
-            margin-top: 10px;
+            margin-left: 10px;
             background-color: white;
             padding: 5px 10px;
             border-radius: 4px;
@@ -54,10 +54,11 @@
     </style>
 </head>
 <body>
-    <div>
+    <div >
         <h1>Digite o seu acesso</h1>
-        <h3>Login</h3>
-        <span style="display: flex; flex-direction: column; align-items: center; justify-content:  center;">
+        
+        <span style="display: flex; flex-direction: row; align-items: center; justify-content:  center;margin-top: 60px;">
+            <h3>Login</h3>
             <input  type="number" name="user" id="user-cod">
             <button onclick="Validar()">Entrar</button>
         </span>
@@ -67,6 +68,7 @@
         
         const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
         async function verify(input_login){
+            document.getElementById('user-cod').value = ''
             if(input_login){
                 const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Usuário?Login=eq.${input_login}`
                 const respo = await fetch(url,{
@@ -103,6 +105,7 @@
         function Validar(){
             var value_input = document.getElementById('user-cod').value
             verify(value_input)
+            
         }
     </script>
 </body>
