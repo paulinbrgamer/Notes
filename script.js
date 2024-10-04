@@ -1,8 +1,10 @@
-const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação'
+var usuario = Number(localStorage.getItem('id_user'))
+const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?fk_user=eq.${usuario}`
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
 var data;
-var usuario = Number(localStorage.getItem('id_user'))
+var allAnotations
 async function getData() {
+    
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -12,39 +14,38 @@ async function getData() {
             'Accept': 'application/json',
         },
     });
-    const tasks = await fetch('https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa',{
-        method: 'GET',
-        headers: {
-            'apikey': key,
-            'Authorization': `Bearer ${key}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-    })
-    if(!tasks.ok){
-        console.log("erro nas tarefas")
-    }
     if (!response.ok) {
         throw new Error('Erro ao buscar dados de anotação');
     }
     const data = await response.json()
-    const tarefa = await tasks.json()
     allAnotations = []
-    for (let anotacao of data){
-        if(anotacao.fk_user == usuario ){
-            var object = {id:anotacao.id,nome: anotacao.Nome,task:[],fk:anotacao.fk_user}
-            for (let t of tarefa){
-                if(t.FK == anotacao.id){
-                    object.task.push({id:t.id,t_name:t.Nome, complete: t.Completo,fk: t.FK})
-                }
-            }
-            allAnotations.push(object)
+    for (let a of data){
+        
+        var object = {id:a.id,nome: a.Nome,task:[],fk:a.fk_user}
+        const tasks = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?FK=eq.${a.id}`,{
+            method: 'GET',
+            headers: {
+                'apikey': key,
+                'Authorization': `Bearer ${key}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+        })
+        if(!tasks.ok){
+            console.log("erro nas tarefas")
         }
+        const tarefa = await tasks.json()
+        for (let t of tarefa){
+            object.task.push({id:t.id,t_name:t.Nome, complete: t.Completo,fk: t.FK})
+        }
+        console.log(object)
+         allAnotations.push(object)
+         desenharAnotacoes()
     }
-    desenharAnotacoes()
+   
+    
     
 }
-var allAnotations = []
 var anotacaoSelecionada
 var deletado
 getData()
