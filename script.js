@@ -2,7 +2,6 @@ const url = 'https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação'
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
 var data;
 var usuario = Number(localStorage.getItem('id_user'))
-localStorage.setItem('id_user','')
 async function getData() {
     const response = await fetch(url, {
         method: 'GET',
@@ -30,25 +29,25 @@ async function getData() {
     }
     const data = await response.json()
     const tarefa = await tasks.json()
+    allAnotations = []
     for (let anotacao of data){
         if(anotacao.fk_user == usuario ){
-            var object = {nome: anotacao.Nome,task:[]}
+            var object = {id:anotacao.id,nome: anotacao.Nome,task:[],fk:anotacao.fk_user}
             for (let t of tarefa){
                 if(t.FK == anotacao.id){
-                    object.task.push({t_name:t.Nome, complete: t.Completo})
+                    object.task.push({id:t.id,t_name:t.Nome, complete: t.Completo,fk: t.FK})
                 }
             }
             allAnotations.push(object)
         }
     }
     desenharAnotacoes()
-    console.log(allAnotations)
     
 }
 var allAnotations = []
-getData()
 var anotacaoSelecionada
 var deletado
+getData()
 function selectAnotacao(id){
     toggleMenu()
     var title = document.getElementById('title')
@@ -119,10 +118,12 @@ function  toggleMenu(){
 }
 //adicionar anotação
 function addAnotacao(){
+    
     var barra = document.getElementById('Anotation-name')
     if (barra.value){
         var object = {nome: barra.value,task:[]}
         barra.value = ''
+        
         allAnotations.push(object)
         desenharAnotacoes()
         
@@ -133,7 +134,41 @@ function addAnotacao(){
     
 }
 //remover anotação
-function removerAnotacao(event,id){
+async function removerAnotacao(event,id){
+    //apagar as tasks associadas
+     allAnotations[id].task.forEach(async (tk,id)=>{
+        const url_delete = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?id=eq.${tk.id}`
+        const deleteResponse = await fetch(url_delete,{
+        method: 'DELETE',
+        headers: {
+        'apikey': key,
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json'
+            }
+        })
+        if(deleteResponse.ok){
+            console.log("Apagou ")
+        }
+        else{
+            console.log("deu ruim pra apagar")
+        }
+    })
+    //apagar agora a anotação
+    const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[id].id}`
+    const deleteResponse = await fetch(url_del,{
+    method: 'DELETE',
+    headers: {
+    'apikey': key,
+    'Authorization': `Bearer ${key}`,
+    'Content-Type': 'application/json'
+        }
+    })
+    if(deleteResponse.ok){
+        console.log("Apagou ")
+    }
+    else{
+        console.log("deu ruim pra apagar")
+    }
     event.stopPropagation();
     if (anotacaoSelecionada == id){
         document.getElementById('title').innerText = 'Data'
@@ -142,8 +177,8 @@ function removerAnotacao(event,id){
     if (anotacaoSelecionada > id){
         anotacaoSelecionada--
     }
-    console.log('apagou '+(id+1))
-    console.log('selected '+(anotacaoSelecionada+1))
+    console.log('apagou '+(id))
+    console.log('selected '+(anotacaoSelecionada))
     allAnotations.splice(id,1)
     desenharAnotacoes()
     

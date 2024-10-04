@@ -73,6 +73,7 @@
             const banco = await respo.json()
             for (let user of banco){
                 if (user.Login == Number(input_login)){
+                    localStorage.setItem('id_user','')
                     localStorage.setItem('id_user',String(user.id))
                     var a = document.createElement('a')
                     a.href = 'index.html'
