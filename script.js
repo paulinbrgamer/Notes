@@ -49,6 +49,12 @@ var deletado
 getData()
 function selectAnotacao(id){
     toggleMenu()
+    var anot = document.getElementById(id)
+    var all = document.getElementsByClassName('selected')
+    for(let el of all){
+        el.classList.remove('selected')
+    }
+    anot.classList.add('selected')
     var title = document.getElementById('title')
     title.innerText = allAnotations[id].nome
     anotacaoSelecionada = id
@@ -60,7 +66,7 @@ function desenharAnotacoes(){
     let update = ''
     var container = document.getElementById('container-anotacoes')
     allAnotations.forEach((obj,index)=>{
-        update =  update+`<div class= "ho" onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray;">
+        update =  update+`<div id="${index}" class= "ho" onclick="selectAnotacao(${index})" style="display: flex; align-items: center; justify-content:  space-between; border-bottom: 1px solid gray;">
         <button ><p>${obj.nome}</p> </button>
         <img onclick="removerAnotacao(event,${index})" style="width: 24px;margin-left: 10px; margin-top: 10px;" src="img/icons/lixeira.png" alt="">
         </div>`
@@ -152,7 +158,8 @@ async function removerAnotacao(event,idx){
             anotacaoSelecionada--
         }
         allAnotations.splice(idx,1)
-        desenharAnotacoes()    
+        desenharAnotacoes()   
+        selectAnotacao(anotacaoSelecionada) 
     }
     else{
         console.log("deu ruim pra apagar")
