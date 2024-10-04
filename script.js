@@ -53,7 +53,6 @@ function selectAnotacao(id){
     var title = document.getElementById('title')
     title.innerText = allAnotations[id].nome
     anotacaoSelecionada = id
-    console.log('selecionou '+(id+1))
     desenharTasks(id)
     document.querySelector('main').style.display = 'flex'
 }
@@ -117,8 +116,7 @@ function  toggleMenu(){
     
 }
 //adicionar anotação
-function addAnotacao(){
-    
+async function addAnotacao(){
     var barra = document.getElementById('Anotation-name')
     if (barra.value){
         var object = {nome: barra.value,task:[]}
@@ -135,6 +133,7 @@ function addAnotacao(){
 }
 //remover anotação
 async function removerAnotacao(event,idx){
+    event.stopPropagation();
     //apagar agora a anotação
     const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[idx].id}`
     const deleteResponse = await fetch(url_del,{
@@ -147,19 +146,18 @@ async function removerAnotacao(event,idx){
     })
     if(deleteResponse.ok){
         console.log("Apagou "+allAnotations[idx])
+        if (anotacaoSelecionada == idx){
+            document.getElementById('title').innerText = 'Data'
+            document.querySelector('main').style.display = 'none'
+        }
+        getData()
+        desenharAnotacoes()    
     }
     else{
         console.log("deu ruim pra apagar")
     }
-    event.stopPropagation();
-    if (anotacaoSelecionada == idx){
-        document.getElementById('title').innerText = 'Data'
-        document.querySelector('main').style.display = 'none'
-    }
-    getData()
-    console.log(allAnotations)
-    desenharAnotacoes()
     
+
 }
 //adicionar task
 function addTask(){
