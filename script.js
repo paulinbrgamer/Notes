@@ -134,27 +134,9 @@ function addAnotacao(){
     
 }
 //remover anotação
-async function removerAnotacao(event,id){
-    //apagar as tasks associadas
-     allAnotations[id].task.forEach(async (tk,id)=>{
-        const url_delete = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?id=eq.${tk.id}`
-        const deleteResponse = await fetch(url_delete,{
-        method: 'DELETE',
-        headers: {
-        'apikey': key,
-        'Authorization': `Bearer ${key}`,
-        'Content-Type': 'application/json'
-            }
-        })
-        if(deleteResponse.ok){
-            console.log("Apagou ")
-        }
-        else{
-            console.log("deu ruim pra apagar")
-        }
-    })
+async function removerAnotacao(event,idx){
     //apagar agora a anotação
-    const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[id].id}`
+    const url_del = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?id=eq.${allAnotations[idx].id}`
     const deleteResponse = await fetch(url_del,{
     method: 'DELETE',
     headers: {
@@ -164,22 +146,18 @@ async function removerAnotacao(event,id){
         }
     })
     if(deleteResponse.ok){
-        console.log("Apagou ")
+        console.log("Apagou "+allAnotations[idx])
     }
     else{
         console.log("deu ruim pra apagar")
     }
     event.stopPropagation();
-    if (anotacaoSelecionada == id){
+    if (anotacaoSelecionada == idx){
         document.getElementById('title').innerText = 'Data'
         document.querySelector('main').style.display = 'none'
     }
-    if (anotacaoSelecionada > id){
-        anotacaoSelecionada--
-    }
-    console.log('apagou '+(id))
-    console.log('selected '+(anotacaoSelecionada))
-    allAnotations.splice(id,1)
+    getData()
+    console.log(allAnotations)
     desenharAnotacoes()
     
 }
