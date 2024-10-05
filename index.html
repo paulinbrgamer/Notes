@@ -6,7 +6,7 @@
     <title>Login</title>
     <style>
         body{
-            background-color: antiquewhite;
+            background-color: #cf31b854;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -17,7 +17,7 @@
         }
         div{
             
-            box-shadow: 6px 6px 14px 1px rgba(128, 128, 128, 0.452);
+            box-shadow: 1px 1px 14px 10px rgba(99, 98, 98, 0.452);
             border: 1px solid rgba(75, 73, 73, 0.719);
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
@@ -65,7 +65,12 @@
 
     </div>
     <script>
-        
+        var campo = document.getElementById('user-cod')
+        campo.addEventListener('keydown',function(event){
+            if(event.key== 'Enter'){
+                Validar()
+            }
+        })
         const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
         async function verify(input_login){
             document.getElementById('user-cod').value = ''

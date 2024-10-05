@@ -28,10 +28,10 @@ header{
     height: 60px;
     display: flex;
     justify-content: flex-end;
-    background-color: #FFF6FE;
+    background-color: #b623a569;
     padding: 20px 15px 10px 15px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+    border-bottom:1px solid #727272;
 }
 #title{
     margin-top: 3px;
@@ -180,7 +180,7 @@ main{
     padding: 15px 5px;
     width: 97%;
     border-radius: 8px;
-    background-color: #ffe9fb;
+    background-color: #cf31b728;
 }
 .task-checked{
     font-size: 14pt;
@@ -250,7 +250,7 @@ main{
         height: 100vh;
         width: 340px;
         background-color: white;
-        border-right: 1px solid #CAC4D0;
+        border-right: 1px solid #727272;
     }
     #hb-button{
         cursor: pointer;
@@ -319,5 +319,5 @@ transition: all 0.2s ease;
 }
 .selected{
     border-radius: 5px;
-    background-color: #fceefa;
+    background-color: #cf31b854;
 }
