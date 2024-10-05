@@ -116,7 +116,7 @@ function desenharTasks(id){
                     <p style=" font-weight: 400;">${tk.t_name}</p>
                 </div>
                 <div id="options">
-                    <button onclick = "deletetask(${index})"  class="remove-task"></button>
+                    <button onclick = "deletetask(${tk.id},${index})"  class="remove-task"></button>
                 </div>
                 </div>`
             }
@@ -259,8 +259,19 @@ async function CompleteTask(id_tk,idx){
 
     
 }
-function deletetask(name_t){
-    allAnotations[anotacaoSelecionada].task.splice(name_t,1)
+async function deletetask(tkid,id){
+    var respo = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?id=eq.${tkid}`,{
+        method: 'DELETE',
+        headers:{
+            'apikey': key,
+            'Authorization': `Bearer ${key}`,
+            'Content-Type': 'application/json',
+        }
+    })
+    if (respo){
+        console.log('deletado')
+    }
+    allAnotations[anotacaoSelecionada].task.splice(id,1)
     desenharTasks(anotacaoSelecionada)
 }
 
