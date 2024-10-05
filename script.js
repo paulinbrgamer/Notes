@@ -1,3 +1,8 @@
+if (localStorage.getItem('id_user')== undefined){
+    var a = document.createElement('a')
+    a.href = 'index.html'
+    a.click()
+}
 var usuario = Number(localStorage.getItem('id_user'))
 const url = `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Anotação?fk_user=eq.${usuario}`
 const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2eHB4cmZld3JrbGZldXR6Z3lmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNzk2NDY3OSwiZXhwIjoyMDQzNTQwNjc5fQ.OGNyeGGWlIC6FtZUYViH8C0h4sVJFq_lXyBTyxM5M48'
