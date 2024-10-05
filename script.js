@@ -39,6 +39,7 @@ async function getData() {
         }
          allAnotations.push(object)
          desenharAnotacoes()
+         console.log(allAnotations)
     }
    
     
@@ -200,11 +201,28 @@ async function removerAnotacao(event,idx){
 
 }
 //adicionar task
-function addTask(){
+async function addTask(){
     var campo = document.getElementById('input-task')
     var anota = allAnotations[anotacaoSelecionada]
     if (campo.value){
-        anota.task.push({t_name:campo.value, complete: false})
+        var url_task =  `https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa`
+        const task_add = await fetch(url_task,{
+            method: 'POST',
+            headers:{
+                'apikey': key,
+                'Authorization': `Bearer ${key}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation',
+            },
+            body: JSON.stringify({Nome:campo.value,Completo:false,FK:anota.id})
+        })
+        if(task_add){
+            var data = await task_add.json()
+            anota.task.push({id:data[0].id,t_name:campo.value, complete: false,fk:anota.id})
+            console.log(allAnotations)
+        }        
+        
+
         campo.value = ''
     }
     else{
