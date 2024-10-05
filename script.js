@@ -297,3 +297,9 @@ function openOptions(){
     var modal = document.getElementById('modal-Data')
     modal.classList.toggle('opened-Data')
 }
+function logout(){
+    localStorage.clear()
+    var a = document.createElement('a')
+    a.href = 'index.html'
+    a.click()
+}
