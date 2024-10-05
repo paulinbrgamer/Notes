@@ -21,7 +21,7 @@ async function getData() {
     allAnotations = []
     for (let a of data){
         var object = {id:a.id,Nome: a.Nome,task:[],fk:a.fk_user}
-        const tasks = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?FK=eq.${a.id}`,{
+        const tasks = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?FK=eq.${a.id}&order=id.asc`,{
             method: 'GET',
             headers: {
                 'apikey': key,
@@ -34,12 +34,13 @@ async function getData() {
             console.log("erro nas tarefas")
         }
         const tarefa = await tasks.json()
+        console.log(tarefa)
         for (let t of tarefa){
             object.task.push({id:t.id,t_name:t.Nome, complete: t.Completo,fk: t.FK})
         }
          allAnotations.push(object)
          desenharAnotacoes()
-         console.log(allAnotations)
+         
     }
    
     
@@ -103,8 +104,8 @@ function desenharTasks(id){
                     <p style=" font-weight: 400;">${tk.t_name}</p>
                 </div>
                 <div id="options">
-                    <button onclick = "CompleteTask(${index})" class="complete-task"></button>
-                    <button onclick = "deletetask(${index})"  class="remove-task"></button>
+                    <button onclick = "CompleteTask(${tk.id},${index})" class="complete-task"></button>
+                    <button onclick = "deletetask(${tk.id},${index})"  class="remove-task"></button>
                 </div>
                 </div>`
             }
@@ -239,9 +240,24 @@ function Enterkey(event,func){
 }
 
 //funcão que faz a task ser completada
-function CompleteTask(name_t){
-    allAnotations[anotacaoSelecionada].task[name_t].complete = true
+async function CompleteTask(id_tk,idx){
+    var respo = await fetch(`https://dvxpxrfewrklfeutzgyf.supabase.co/rest/v1/Tarefa?id=eq.${id_tk}`,{
+        method: 'PATCH',
+        headers:{
+            'apikey': key,
+            'Authorization': `Bearer ${key}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({Completo:true})
+    })
+    if(respo){
+        
+    allAnotations[anotacaoSelecionada].task[idx].complete = true
     desenharTasks(anotacaoSelecionada)
+    console.log(allAnotations)
+    }
+
+    
 }
 function deletetask(name_t){
     allAnotations[anotacaoSelecionada].task.splice(name_t,1)
